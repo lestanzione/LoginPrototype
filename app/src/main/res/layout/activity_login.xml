@@ -61,7 +61,7 @@
             android:layout_alignTop="@id/loginBottomDivider"
             android:layout_toLeftOf="@id/loginBottomDivider"
             android:layout_toStartOf="@id/loginBottomDivider"
-            android:background="@drawable/login_screen_bottom_button"/>
+            android:background="@drawable/selector_login_screen_bottom_button"/>
 
         <Button
             android:id="@+id/signUpButton"
@@ -73,7 +73,7 @@
             android:layout_alignTop="@id/loginBottomDivider"
             android:layout_toRightOf="@id/loginBottomDivider"
             android:layout_toEndOf="@id/loginBottomDivider"
-            android:background="@drawable/login_screen_bottom_button"/>
+            android:background="@drawable/selector_login_screen_bottom_button"/>
 
     </RelativeLayout>
 
