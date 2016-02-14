@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,37 +19,169 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            android:background="?attr/colorPrimary" />
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_forest"
+            android:alpha="0.9"/>
+
         <TextView android:text="Spread It!"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/spreadTitle"
-            android:textSize="28sp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-
-        <TextView android:text="Email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/signUpEmailEditText"
-            android:textSize="28sp"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="invisible"/>
+            android:visibility="visible"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signUpCardView"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#33FFFFFF"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:visibility="invisible"
+            card_view:cardBackgroundColor="#CCFFFFFF"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="5dp"
+            android:alpha="0.95">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:hint="Username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signUpUsernameEditText"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_user"
+                    android:drawablePadding="16dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <View
+                    android:id="@+id/signUpDivider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/signUpUsernameEditText"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <EditText
+                    android:hint="Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signUpEmailEditText"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:singleLine="true"
+                    android:inputType="textEmailAddress"
+                    android:layout_below="@id/signUpDivider1"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:alpha="1"/>
+
+                <View
+                    android:id="@+id/signUpDivider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/signUpEmailEditText"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <EditText
+                    android:hint="Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signUpPasswordEditText"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawablePadding="20dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:layout_below="@id/signUpDivider2"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <View
+                    android:id="@+id/signUpDivider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/signUpPasswordEditText"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signUpButton"
+                    android:background="@drawable/signup_button"
+                    android:text="Sign Up"
+                    android:textSize="22sp"
+                    android:layout_below="@id/signUpDivider3"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
         <View
             android:id="@+id/loginBottomDivider"
             android:layout_width="2dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_blue_light"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"/>
 
@@ -61,10 +195,16 @@
             android:layout_alignTop="@id/loginBottomDivider"
             android:layout_toLeftOf="@id/loginBottomDivider"
             android:layout_toStartOf="@id/loginBottomDivider"
-            android:background="@drawable/selector_login_screen_bottom_button"/>
+            android:background="@drawable/selector_login_screen_bottom_button"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
 
         <Button
-            android:id="@+id/signUpButton"
+            android:id="@+id/loginSignUpButton"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:text="Sign Up"
@@ -73,7 +213,13 @@
             android:layout_alignTop="@id/loginBottomDivider"
             android:layout_toRightOf="@id/loginBottomDivider"
             android:layout_toEndOf="@id/loginBottomDivider"
-            android:background="@drawable/selector_login_screen_bottom_button"/>
+            android:background="@drawable/selector_login_screen_bottom_button"
+            android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
 
     </RelativeLayout>
 
