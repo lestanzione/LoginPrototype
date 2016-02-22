@@ -165,7 +165,7 @@
                     android:id="@+id/signUpButton"
                     android:background="@drawable/signup_button"
                     android:text="Sign Up"
-                    android:textSize="22sp"
+                    android:textSize="16sp"
                     android:layout_below="@id/signUpDivider3"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
@@ -177,6 +177,131 @@
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signInLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:visibility="invisible"
+            android:alpha="0.95">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signInCardView"
+                android:layout_centerVertical="true"
+                android:background="#33FFFFFF"
+                card_view:cardBackgroundColor="#CCFFFFFF"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="5dp"
+                android:alpha="0.95">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:hint="Username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/signInUsernameEditText"
+                        android:textSize="16sp"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_user"
+                        android:drawablePadding="16dp"
+                        android:drawableTint="@color/colorAccent"
+                        android:singleLine="true"
+                        android:inputType="text"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <View
+                        android:id="@+id/signInDivider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimary"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/signInUsernameEditText"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <EditText
+                        android:hint="Password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/signInPasswordEditText"
+                        android:textSize="16sp"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_lock"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/colorAccent"
+                        android:singleLine="true"
+                        android:inputType="textPassword"
+                        android:layout_below="@id/signInDivider1"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <View
+                        android:id="@+id/signInDivider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/colorPrimary"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/signInPasswordEditText"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/signInButton"
+                        android:background="@drawable/signup_button"
+                        android:text="Login"
+                        android:textSize="16sp"
+                        android:layout_below="@id/signInDivider2"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginFacebookButton"
+                android:text="Login with Facebook"
+                android:background="@drawable/selector_login_screen_bottom_button"
+                android:textSize="16sp"
+                android:layout_below="@id/signInCardView"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"/>
+
+        </RelativeLayout>
 
         <View
             android:id="@+id/loginBottomDivider"
