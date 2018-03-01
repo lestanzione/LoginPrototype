@@ -9,6 +9,9 @@ The screen should show the app title or logo, the Sign Up screen and the Sign In
 - CoordinatorLayout, AppBarLayout, CollapsingToolbarLayout and Toolbar
 - RecyclerView and CardView
 - Animations
+- Dagger2
+- ButterKnife
+- Mockito
 
 
 ### Live Demo
