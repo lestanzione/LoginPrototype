@@ -1,4 +1,4 @@
-package com.stanzione.loginprototype;
+package com.stanzione.loginprototype.login;
 
 import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
@@ -7,35 +7,68 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity {
+import com.stanzione.loginprototype.R;
+import com.stanzione.loginprototype.di.LoginApplication;
 
-    private CoordinatorLayout coordinatorLayout;
+import javax.inject.Inject;
 
-    private Button loginSignInButton;
-    private Button loginSignUpButton;
-    private TextView titleTextView;
+import butterknife.BindAnim;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class LoginActivity extends AppCompatActivity implements LoginContract.View {
+
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+
+    @BindView(R.id.loginButton)
+    Button loginSignInButton;
+
+    @BindView(R.id.loginSignUpButton)
+    Button loginSignUpButton;
+
+    @BindView(R.id.spreadTitle)
+    TextView titleTextView;
 
     //Sign In elements
-    private RelativeLayout signInLayout;
-    private EditText signInUsernameEditText;
-    private EditText signInPasswordEditText;
-    private Button signInButton;
+    @BindView(R.id.signInLayout)
+    RelativeLayout signInLayout;
+
+    @BindView(R.id.signInUsernameEditText)
+    EditText signInUsernameEditText;
+
+    @BindView(R.id.signInPasswordEditText)
+    EditText signInPasswordEditText;
+
+    @BindView(R.id.signInButton)
+    Button signInButton;
 
     //Sign Up elements
-    private CardView signUpCardView;
-    private EditText signUpUsernameEditText;
-    private EditText signUpEmailEditText;
-    private EditText signUpPasswordEditText;
-    private Button signUpButton;
+    @BindView(R.id.signUpCardView)
+    CardView signUpCardView;
+
+    @BindView(R.id.signUpUsernameEditText)
+    EditText signUpUsernameEditText;
+
+    @BindView(R.id.signUpEmailEditText)
+    EditText signUpEmailEditText;
+
+    @BindView(R.id.signUpPasswordEditText)
+    EditText signUpPasswordEditText;
+
+    @BindView(R.id.signUpButton)
+    Button signUpButton;
+
+    @Inject
+    LoginContract.Presenter loginPresenter;
 
     private LoginState currentState = LoginState.STATE_LOGO;
 
@@ -45,12 +78,19 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isSignInRunning = false;
     private boolean isSignUpRunning = false;
 
+    @BindAnim(R.anim.fade_in)
     Animation animFadeIn;
+    @BindAnim(R.anim.fade_out)
     Animation animFadeOut;
+    @BindAnim(R.anim.explode)
     Animation animExplode;
+    @BindAnim(R.anim.enter_from_left)
     Animation animEnterFromLeft;
+    @BindAnim(R.anim.enter_from_right)
     Animation animEnterFromRight;
+    @BindAnim(R.anim.exit_to_left)
     Animation animExitToLeft;
+    @BindAnim(R.anim.exit_to_right)
     Animation animExitToRight;
 
     private enum LoginState {
@@ -64,69 +104,40 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-        animFadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-        animExplode = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.explode);
-        animEnterFromLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enter_from_left);
-        animEnterFromRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enter_from_right);
-        animExitToLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.exit_to_left);
-        animExitToRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.exit_to_right);
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-
-        loginSignInButton = (Button) findViewById(R.id.loginButton);
-        loginSignUpButton = (Button) findViewById(R.id.loginSignUpButton);
-        titleTextView = (TextView) findViewById(R.id.spreadTitle);
-
-        signInLayout = (RelativeLayout) findViewById(R.id.signInLayout);
-        signInUsernameEditText = (EditText) findViewById(R.id.signInUsernameEditText);
-        signInPasswordEditText = (EditText) findViewById(R.id.signInPasswordEditText);
-        signInButton = (Button) findViewById(R.id.signInButton);
-
-        signUpCardView = (CardView) findViewById(R.id.signUpCardView);
-        signUpUsernameEditText = (EditText) findViewById(R.id.signUpUsernameEditText);
-        signUpEmailEditText = (EditText) findViewById(R.id.signUpEmailEditText);
-        signUpPasswordEditText = (EditText) findViewById(R.id.signUpPasswordEditText);
-        signUpButton = (Button) findViewById(R.id.signUpButton);
-
-        loginSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSignIn();
-            }
-        });
-
-        loginSignUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSignUp();
-            }
-        });
-
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doSignIn();
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                doSignUp();
-            }
-        });
+        ((LoginApplication) getApplication()).getAppComponent().inject(this);
+        ButterKnife.bind(this);
 
     }
 
-    private void showSignIn(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loginPresenter.attachView(this);
+        loginPresenter.getAppUser();
+    }
 
-        if(signUpRequest != null) {
-            signUpRequest.cancel(true);
-        }
+    @OnClick(R.id.loginButton)
+    void showSignIn(){
+        loginPresenter.signInButtonClicked();
+    }
+
+    @OnClick(R.id.loginSignUpButton)
+    void showSignUp(){
+        loginPresenter.signUpButtonClicked();
+    }
+
+    @OnClick(R.id.signInButton)
+    void doSignIn(){
+        loginPresenter.doLogin();
+    }
+
+    @OnClick(R.id.signUpButton)
+    void doSignUp(){
+        loginPresenter.doSignUp();
+    }
+
+    @Override
+    public void showSignInDialog() {
 
         if(currentState.equals(LoginState.STATE_LOGO)) {
 
@@ -180,11 +191,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void showSignUp(){
-
-        if(signInRequest != null) {
-            signInRequest.cancel(true);
-        }
+    @Override
+    public void showSignUpDialog() {
 
         if(currentState.equals(LoginState.STATE_LOGO)) {
 
@@ -238,77 +246,39 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void doSignIn(){
-
-        if(!isSignInUsernameValid()){
-            Snackbar.make(coordinatorLayout, "Username must have at least 5 characters", Snackbar.LENGTH_SHORT).show();
-        }
-        else if(!isSignInPasswordValid()){
-            Snackbar.make(coordinatorLayout, "Enter a password", Snackbar.LENGTH_SHORT).show();
-        }
-        else{
-            signInRequest = new SignInRequest();
-            signInRequest.execute(new String[]{getSignInUsername(), getSignInPassword()});
-        }
-
-    }
-
-    private void doSignUp(){
-
-        if(!isUsernameValid()){
-            Snackbar.make(coordinatorLayout, "Username must have at least 5 characters", Snackbar.LENGTH_SHORT).show();
-        }
-        else if(!isEmailValid()){
-            Snackbar.make(coordinatorLayout, "Enter a valid email", Snackbar.LENGTH_SHORT).show();
-        }
-        else if(!isPasswordValid()){
-            Snackbar.make(coordinatorLayout, "Enter a password", Snackbar.LENGTH_SHORT).show();
-        }
-        else{
-            signUpRequest = new SignUpRequest();
-            signUpRequest.execute(new String[]{getUsername(), getEmail(), getPassword()});
-        }
-
-    }
-
-    private boolean isUsernameValid(){
-        return getUsername().length() >= 5;
-    }
-
-    private boolean isEmailValid(){
-        return Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches();
-    }
-
-    private boolean isPasswordValid(){
-        return !getPassword().isEmpty();
-    }
-
-    private String getUsername(){
-        return signUpUsernameEditText.getText().toString().trim();
-    }
-
-    private String getEmail(){
-        return signUpEmailEditText.getText().toString().trim();
-    }
-
-    private String getPassword(){
-        return signUpPasswordEditText.getText().toString().trim();
-    }
-
-    private boolean isSignInUsernameValid(){
-        return getSignInUsername().length() >= 5;
-    }
-
-    private boolean isSignInPasswordValid(){
-        return !getSignInPassword().isEmpty();
-    }
-
-    private String getSignInUsername(){
+    @Override
+    public String getSignInUsername() {
         return signInUsernameEditText.getText().toString().trim();
     }
 
-    private String getSignInPassword(){
+    @Override
+    public String getSignInPassword() {
         return signInPasswordEditText.getText().toString().trim();
+    }
+
+    @Override
+    public String getSignUpUsername() {
+        return signUpUsernameEditText.getText().toString().trim();
+    }
+
+    @Override
+    public String getSignUpEmail() {
+        return signUpEmailEditText.getText().toString().trim();
+    }
+
+    @Override
+    public String getSignUpPassword() {
+        return signUpPasswordEditText.getText().toString().trim();
+    }
+
+    @Override
+    public void setSignInUsername(String signInUsername) {
+        signInUsernameEditText.setText(signInUsername);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     private class SignInRequest extends AsyncTask<String, Void, Boolean>{
